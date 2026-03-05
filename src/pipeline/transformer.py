@@ -1,9 +1,10 @@
 import pandas as pd
 import requests
 import json
+import logging
 
 def process_matches():
-    print("🔄 Iniciando el procesamiento de datos de partidas...")
+    logging.info("🔄 Iniciando el procesamiento de datos de partidas...")
 
     try:
         # Cargar el archivo JSON generado en la Fase 1
@@ -19,7 +20,7 @@ def process_matches():
         df = df[columns]
 
         # 3. Mapeo de Héroes (RF2) - Consumir constantes de la API
-        print("🎭 Obteniendo nombres de héroes...")
+        logging.info("🎭 Obteniendo nombres de héroes...")
         heroes_resp = requests.get("https://api.opendota.com/api/constants/heroes")
         heroes_dict = heroes_resp.json()
         
@@ -41,16 +42,16 @@ def process_matches():
         # 3. IDENTIFICACIÓN DE OUTLIERS (Rendimiento excepcional)
         # Marcamos partidas donde el KDA fue el doble que tu promedio móvil.
         df['is_peak_performance'] = df['kda'] > (df['kda_rolling_avg'] * 2)
-        
-        print("\n📊 Resumen de las últimas partidas:")
-        print(df[['match_id', 'hero_name', 'kills', 'deaths', 'kda']].head())
+
+        logging.info("\n📊 Resumen de las últimas partidas:")
+        logging.info(df[['match_id', 'hero_name', 'kills', 'deaths', 'kda']].head())
         
         # Guardar para la Fase 3 (SQL)
         df.to_csv('processed_matches.csv', index=False)
-        print("\n✅ Archivo 'processed_matches.csv' generado para carga en DB.")
-
+        logging.info("\n✅ Archivo 'processed_matches.csv' generado para carga en DB.")
+        return True
     except Exception as e:
-        print(f"❌ Error en el procesamiento: {e}")
-
+        logging.error(f"❌ Error en el procesamiento: {e}")
+        return False
 if __name__ == "__main__":
     process_matches()

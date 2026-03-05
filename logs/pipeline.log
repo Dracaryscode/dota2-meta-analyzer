@@ -1,0 +1,76 @@
+2026-03-05 07:25:26,131 - INFO - [main.py] - 🚀 Iniciando Pipeline de Ingeniería de Datos...
+2026-03-05 07:25:26,131 - INFO - [extractor.py] - 📡 Conectando con OpenDota para el jugador 135452518...
+2026-03-05 07:25:27,548 - INFO - [extractor.py] - ✅ Fase 1 Completada: Se generó 'raw_matches.json' con 50 partidas.
+2026-03-05 07:25:27,549 - INFO - [transformer.py] - 🔄 Iniciando el procesamiento de datos de partidas...
+2026-03-05 07:25:27,558 - INFO - [transformer.py] - 🎭 Obteniendo nombres de héroes...
+2026-03-05 07:25:28,131 - INFO - [transformer.py] - 
+📊 Resumen de las últimas partidas:
+2026-03-05 07:25:28,132 - INFO - [transformer.py] -       match_id    hero_name  kills  deaths       kda
+49  8696831063       Huskar      8      15  0.733333
+48  8696855543  Broodmother      8       4  6.250000
+47  8696875986  Broodmother      1      11  0.636364
+46  8697355844  Broodmother     15       4  7.000000
+45  8697415015  Broodmother     10       7  3.000000
+2026-03-05 07:25:28,149 - INFO - [transformer.py] - 
+✅ Archivo 'processed_matches.csv' generado para carga en DB.
+2026-03-05 07:25:28,150 - INFO - [loader.py] - 🚀 Iniciando carga incremental (Upsert) en PostgreSQL...
+2026-03-05 07:25:29,795 - ERROR - [loader.py] - ❌ Error al cargar en DB: (psycopg2.errors.UndefinedColumn) column "kda_rolling_avg" of relation "matches" does not exist
+LINE 2: ...lls, deaths, assists, kda, duration, radiant_win, kda_rollin...
+                                                             ^
+
+[SQL: 
+                INSERT INTO matches (match_id, hero_name, kills, deaths, assists, kda, duration, radiant_win, kda_rolling_avg)
+                SELECT match_id, hero_name, kills, deaths, assists, kda, duration, radiant_win, kda_rolling_avg 
+                FROM temp_matches
+                ON CONFLICT (match_id) DO NOTHING;
+                    ]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2026-03-05 07:25:29,795 - INFO - [visualizer.py] - 📈 Generando reporte visual de rendimiento...
+2026-03-05 07:25:30,325 - INFO - [visualizer.py] - ✅ Reporte 'reporte_rendimiento.png' exportado con éxito.
+2026-03-05 07:25:30,325 - INFO - [main.py] - ✅ Pipeline ejecutado con éxito de extremo a extremo.
+2026-03-05 07:27:51,970 - INFO - [main.py] - 🚀 Iniciando Pipeline de Ingeniería de Datos...
+2026-03-05 07:27:51,970 - INFO - [extractor.py] - 📡 Conectando con OpenDota para el jugador 135452518...
+2026-03-05 07:27:52,693 - INFO - [extractor.py] - ✅ Fase 1 Completada: Se generó 'raw_matches.json' con 50 partidas.
+2026-03-05 07:27:52,695 - INFO - [transformer.py] - 🔄 Iniciando el procesamiento de datos de partidas...
+2026-03-05 07:27:52,702 - INFO - [transformer.py] - 🎭 Obteniendo nombres de héroes...
+2026-03-05 07:27:53,375 - INFO - [transformer.py] - 
+📊 Resumen de las últimas partidas:
+2026-03-05 07:27:53,376 - INFO - [transformer.py] -       match_id    hero_name  kills  deaths       kda
+49  8696831063       Huskar      8      15  0.733333
+48  8696855543  Broodmother      8       4  6.250000
+47  8696875986  Broodmother      1      11  0.636364
+46  8697355844  Broodmother     15       4  7.000000
+45  8697415015  Broodmother     10       7  3.000000
+2026-03-05 07:27:53,391 - INFO - [transformer.py] - 
+✅ Archivo 'processed_matches.csv' generado para carga en DB.
+2026-03-05 07:27:53,392 - INFO - [loader.py] - 🚀 Iniciando carga incremental (Upsert) en PostgreSQL...
+2026-03-05 07:27:53,606 - ERROR - [loader.py] - ❌ Error al cargar en DB: (psycopg2.errors.InvalidColumnReference) there is no unique or exclusion constraint matching the ON CONFLICT specification
+
+[SQL: 
+                INSERT INTO matches (match_id, hero_name, kills, deaths, assists, kda, duration, radiant_win, kda_rolling_avg)
+                SELECT match_id, hero_name, kills, deaths, assists, kda, duration, radiant_win, kda_rolling_avg 
+                FROM temp_matches
+                ON CONFLICT (match_id) DO NOTHING;
+                    ]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2026-03-05 07:27:53,607 - ERROR - [main.py] - ❌ Error en Carga a DB. El reporte no será preciso.
+2026-03-05 07:29:11,025 - INFO - [main.py] - 🚀 Iniciando Pipeline de Ingeniería de Datos...
+2026-03-05 07:29:11,026 - INFO - [extractor.py] - 📡 Conectando con OpenDota para el jugador 135452518...
+2026-03-05 07:29:11,708 - INFO - [extractor.py] - ✅ Fase 1 Completada: Se generó 'raw_matches.json' con 50 partidas.
+2026-03-05 07:29:11,710 - INFO - [transformer.py] - 🔄 Iniciando el procesamiento de datos de partidas...
+2026-03-05 07:29:11,719 - INFO - [transformer.py] - 🎭 Obteniendo nombres de héroes...
+2026-03-05 07:29:12,291 - INFO - [transformer.py] - 
+📊 Resumen de las últimas partidas:
+2026-03-05 07:29:12,292 - INFO - [transformer.py] -       match_id    hero_name  kills  deaths       kda
+49  8696831063       Huskar      8      15  0.733333
+48  8696855543  Broodmother      8       4  6.250000
+47  8696875986  Broodmother      1      11  0.636364
+46  8697355844  Broodmother     15       4  7.000000
+45  8697415015  Broodmother     10       7  3.000000
+2026-03-05 07:29:12,308 - INFO - [transformer.py] - 
+✅ Archivo 'processed_matches.csv' generado para carga en DB.
+2026-03-05 07:29:12,309 - INFO - [loader.py] - 🚀 Iniciando carga incremental (Upsert) en PostgreSQL...
+2026-03-05 07:29:12,420 - INFO - [loader.py] - ✅ Carga finalizada: Base de datos actualizada sin duplicados.
+2026-03-05 07:29:12,420 - INFO - [visualizer.py] - 📈 Generando reporte visual de rendimiento...
+2026-03-05 07:29:12,816 - INFO - [visualizer.py] - ✅ Reporte 'reporte_rendimiento.png' exportado con éxito.
+2026-03-05 07:29:12,816 - INFO - [main.py] - ✅ Pipeline ejecutado con éxito de extremo a extremo.

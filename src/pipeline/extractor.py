@@ -2,6 +2,8 @@ import requests
 import json
 import os
 from dotenv import load_dotenv
+import logging
+import os
 
 # Cargar variables de entorno (Estándar de Seguridad)
 load_dotenv()
@@ -9,12 +11,12 @@ PLAYER_ID = os.getenv("PLAYER_ID")
 
 def fetch_dota_data():
     if not PLAYER_ID:
-        print("❌ Error: No se encontró PLAYER_ID en el archivo .env")
-        return
+        logging.info("❌ Error: No se encontró PLAYER_ID en el archivo .env")
+        return False # Retorna False para indicar fallo en la extracción
 
     url = f"https://api.opendota.com/api/players/{PLAYER_ID}/matches?limit=50"
     
-    print(f"📡 Conectando con OpenDota para el jugador {PLAYER_ID}...")
+    logging.info(f"📡 Conectando con OpenDota para el jugador {PLAYER_ID}...")
     
     try:
         # Petición a la API
@@ -27,10 +29,11 @@ def fetch_dota_data():
         with open('raw_matches.json', 'w') as f:
             json.dump(matches, f, indent=4)
             
-        print(f"✅ Fase 1 Completada: Se generó 'raw_matches.json' con {len(matches)} partidas.")
-        
+        logging.info(f"✅ Fase 1 Completada: Se generó 'raw_matches.json' con {len(matches)} partidas.")
+        return True # Retorna True para indicar éxito en la extracción
+    
     except requests.exceptions.RequestException as e:
-        print(f"❌ Error durante la implementación (Fase 1): {e}")
-
+        logging.error(f"❌ Error durante la implementación (Fase 1): {e}")
+        return False # Retorna False para indicar fallo en la extracción
 if __name__ == "__main__":
     fetch_dota_data()
