@@ -1,23 +1,25 @@
-# 🎮 Dota 2 Meta-Analyzer: Behavioral Data Pipeline
+# 🎮 Dota 2 Meta-Analyzer: High-Performance ETL Pipeline
 
 ### 📌 Overview
-Pipeline de **Ingeniería de Datos** que automatiza la extracción de métricas desde la API de OpenDota, realiza transformaciones analíticas para detectar fatiga cognitiva y persiste los resultados en una base de datos **PostgreSQL 14**.
+Este proyecto es un pipeline de **Ingeniería de Datos (ETL)** diseñado para extraer, transformar y analizar métricas de rendimiento en entornos competitivos de alta carga de datos. El sistema automatiza el consumo de APIs, normaliza estructuras complejas y persiste la información en una base de datos relacional para análisis avanzado de tendencias.
+
+
 
 ### 🛠️ Tech Stack
-- [cite_start]**Lenguaje:** Python 3.9+ (Pandas, SQLAlchemy) 
-- [cite_start]**Base de Datos:** PostgreSQL 14 (Modelo Relacional) [cite: 13]
-- [cite_start]**Análisis:** Series de tiempo (Medias Móviles) para métricas de KDA [cite: 15, 17]
-- [cite_start]**Infraestructura:** Entorno virtualizado en macOS M1 
+* **Lenguaje:** Python 3.9+ (Pandas, SQLAlchemy, Requests)
+* **Base de Datos:** PostgreSQL 14 (Modelo Relacional Normalizado)
+* **Análisis:** Series de tiempo mediante Medias Móviles (SMA)
+* **Infraestructura:** Entorno virtualizado (venv) en arquitectura Apple Silicon M1
 
-### 🧪 Análisis Avanzado
-Para el **Neurolab**, el sistema implementa una **Media Móvil Simple (SMA)**:
+### 🧪 Análisis Técnico: Media Móvil (SMA)
+El sistema implementa una **Media Móvil Simple** sobre la métrica de KDA para identificar la estabilidad del rendimiento y detectar picos o degradaciones tras sesiones prolongadas:
+
 $$SMA = \frac{KDA_t + KDA_{t-1} + \dots + KDA_{t-4}}{5}$$
-[cite_start]Esto permite identificar patrones de degradación de rendimiento tras sesiones prolongadas de juego, simulando estudios de carga cognitiva[cite: 17, 21].
 
 ### 📁 Estructura del Proyecto
-- `src/`: Lógica de extracción (API), transformación (Pandas) y carga (SQL).
-- `sql/`: Esquemas de base de datos normalizados.
-- `main.py`: Orquestador principal del flujo ETL.
+* `src/`: Módulos de extracción (API), transformación (Data Cleaning) y carga (SQL).
+* `sql/`: Scripts de definición de esquemas (DDL).
+* `main.py`: Orquestador central del flujo ETL.
 
 ---
-[cite_start]*Desarrollado por Kevin Gomez - 8vo Ciclo Ingeniería de Sistemas (Ulima).* [cite: 1, 19]
+*Desarrollado por Kevin Gomez - Estudiante de Ingeniería de Sistemas (Ulima).*
